@@ -82,7 +82,12 @@ class TimePicker @JvmOverloads constructor(
 
         array[0] = hpic.value
         array[1] = mpic.value
-        array[2] = mmpic.value
+        array[2] = when (mmpic.value) {
+            0 -> 0
+            1 -> 1
+            2 -> 0
+            else -> 1
+        }
 
         return array
     }
