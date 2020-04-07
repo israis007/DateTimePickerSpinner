@@ -18,15 +18,20 @@ class TimePicker @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
+    private var event: EventPicker? = null
+    private lateinit var hpic: NumberPicker
+    private lateinit var mpic: NumberPicker
+    private lateinit var mmpic: NumberPicker
+
     constructor(context: Context, @Nullable hourArray: ArrayList<String>?, @Nullable minutesArray: ArrayList<String>?, @NonNull colorDots: Int): this(context){
         val dm = DecimalFormat("00")
 
         orientation = HORIZONTAL
 
         val view = LayoutInflater.from(context).inflate(R.layout.picker, null, false)
-        val hpic = view.findViewById<NumberPicker>(R.id.hour_picker)
-        val mpic = view.findViewById<NumberPicker>(R.id.minute_picker)
-        val mmpic = view.findViewById<NumberPicker>(R.id.meridian_picker)
+        hpic = view.findViewById(R.id.hour_picker)
+        mpic = view.findViewById(R.id.minute_picker)
+        mmpic = view.findViewById(R.id.meridian_picker)
         val dots = view.findViewById<ImageView>(R.id.dots_picker)
 
         val houra = hourArray ?: ArrayList()
@@ -61,6 +66,25 @@ class TimePicker @JvmOverloads constructor(
         if (view.parent != null)
             (view as ViewGroup).removeView(view)
         return view
+    }
+
+    fun addEventPicker(eventPicker: EventPicker){
+        this.event = eventPicker
+    }
+
+//    fun getSelectedHour(): Calendar {
+//        val cal = Calendar.getInstance(Locale.getDefault())
+//        cal[Calendar.HOUR_OF_DAY] = hpic.displayedValues[hpic.value]
+//    }
+
+    fun getSelectedHour(): Array<Int>{
+        val array = Array(3){0}
+
+        array[0] = hpic.value
+        array[1] = mpic.value
+        array[2] = mmpic.value
+
+        return array
     }
 
 }
