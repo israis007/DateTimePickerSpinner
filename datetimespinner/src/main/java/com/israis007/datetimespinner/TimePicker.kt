@@ -158,6 +158,18 @@ class TimePicker @JvmOverloads constructor(
         return view
     }
 
+    fun setHourValueSelected(value: Int){
+        hpic.value = value
+    }
+
+    fun setMinuteValueSelected(value: Int){
+        mpic.value = value
+    }
+
+    fun setMeridianValueSelected(value: Int){
+        mmpic.value = value
+    }
+
     fun addEventPicker(eventPicker: EventPicker){
         this.event = eventPicker
     }
