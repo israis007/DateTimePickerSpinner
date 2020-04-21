@@ -36,10 +36,19 @@ class TimePicker @JvmOverloads constructor(
     private var textSize: Int = 0
     private var date: Calendar? = null
 
+
     constructor(context: Context, @Nullable hourArray: ArrayList<String>?, @Nullable minutesArray: ArrayList<String>?, @NonNull colorDots: Int): this(context){
         this.hourArray = hourArray
         this.minutesArray = minutesArray
         this.colorDots = colorDots
+        setUpViews()
+    }
+
+    constructor(context: Context, @Nullable hourArray: ArrayList<String>?, @Nullable minutesArray: ArrayList<String>?, date: Calendar, @NonNull colorDots: Int): this(context){
+        this.hourArray = hourArray
+        this.minutesArray = minutesArray
+        this.colorDots = colorDots
+        this.date = date
         setUpViews()
     }
 
@@ -71,22 +80,22 @@ class TimePicker @JvmOverloads constructor(
         val layout = view.findViewById<LinearLayout>(R.id.layout_root)
         hpic = view.findViewById(R.id.hour_picker)
 
-        val numberPicker = MaterialNumberPicker(
-            context = context,
-            minValue = 1,
-            maxValue = 50,
-            value = 10,
-            separatorColor = colorDots,
-            textColor = colorText,
-            textSize = textSize,
-            textStyle = Typeface.BOLD_ITALIC,
-            editable = false,
-            wrapped = false,
-            fontName = "Hand.ttf",
-            formatter = NumberPicker.Formatter { value ->
-                return@Formatter "Value $value"
-            }
-        )
+//        val numberPicker = MaterialNumberPicker(
+//            context = context,
+//            minValue = 1,
+//            maxValue = 50,
+//            value = 10,
+//            separatorColor = colorDots,
+//            textColor = colorText,
+//            textSize = textSize,
+//            textStyle = Typeface.BOLD_ITALIC,
+//            editable = false,
+//            wrapped = false,
+//            fontName = "Hand.ttf",
+//            formatter = NumberPicker.Formatter { value ->
+//                return@Formatter "Value $value"
+//            }
+//        )
 
         mpic = view.findViewById(R.id.minute_picker)
         mmpic = view.findViewById(R.id.meridian_picker)
@@ -120,9 +129,9 @@ class TimePicker @JvmOverloads constructor(
         hpic.minValue = 0
         hpic.maxValue = houra.size - 1
 
-        numberPicker.displayedValues = houra.toTypedArray()
-        numberPicker.minValue = 0
-        numberPicker.maxValue = houra.size - 1
+//        numberPicker.displayedValues = houra.toTypedArray()
+//        numberPicker.minValue = 0
+//        numberPicker.maxValue = houra.size - 1
 
         mpic.displayedValues = minutesa.toTypedArray()
         mpic.minValue = 0
@@ -138,7 +147,7 @@ class TimePicker @JvmOverloads constructor(
             mmpic.value = if (date!![Calendar.HOUR_OF_DAY] > 12) 1 else 0
         }
 
-        layout.addView(numberPicker, 0)
+//        layout.addView(numberPicker, 0)
 
         this.addView(getViewWithoutParent(view))
     }
